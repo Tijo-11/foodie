@@ -13,13 +13,14 @@
     <title>My Site</title>
   </head>
   <body>
-    <nav>
-      <div>Foodie</div>
-    </nav>
-    <div class="container">
-      {% block content %}
-      <!-- Child templates will inject content here -->
-      {% endblock content %}
-    </div>
+    <header>
+      <h1><a href="{% url 'foodie_app:index' %}"> Foodie </a></h1>
+    </header>
+
+    <main>{% block content %}{% endblock content %}</main>
+    <footer>
+      <hr />
+      <pre>Footer</pre>
+    </footer>
   </body>
 </html>
