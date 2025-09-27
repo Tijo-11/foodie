@@ -1,9 +1,7 @@
 from django.shortcuts import render
 
 def index(request):
-    data = {
-        "name": "Paolo",
-        "age": 123
-    }
-    context = {"data": data}
+    foods = ["pizza", "pasta", "bread", "salad"]
+    context = {"foods": foods}
     return render(request, "index.html", context)
+

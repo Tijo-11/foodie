@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Foodie - Discover delicious recipes and culinary inspiration."
+    />
+    <meta
+      name="keywords"
+      content="food, recipes, cooking, culinary, foodie, meals, cuisine"
+    />
+    <title>My Site</title>
+  </head>
+  <body>
+    <nav>
+      <div>Foodie</div>
+    </nav>
+    <div class="container">
+      {% block content %}
+      <!-- Child templates will inject content here -->
+      {% endblock content %}
+    </div>
+  </body>
+</html>

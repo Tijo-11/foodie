@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Index Page</title>
-  </head>
-  <body>
-    <p>Hello there, {{ data.name}}</p>
-    <p>Name: {{ data.name }}</p>
-    <p>Age: {{ data.age }}</p>
-  </body>
-</html>
+<!-- sandbox/templates/index.html -->
+{% extends "base.html" %} {% block content %}
+<h1>Our Foods</h1>
+<ul>
+  {% for food in foods %}
+  <li>{{ food }}</li>
+  {% empty %}
+  <p>No foods found.</p>
+  {% endfor %}
+</ul>
+{% endblock content %}
