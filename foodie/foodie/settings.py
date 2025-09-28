@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #my apps
-    'sandbox','foodie_app','recipes', 'comments',
+    'sandbox','foodie_app','recipes', 'comments','accounts',
 ]
 
 MIDDLEWARE = [

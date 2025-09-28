@@ -15,6 +15,7 @@
   <body>
     <header>
       <h1><a href="{% url 'foodie_app:index' %}"> Foodie </a></h1>
+      Hello, {{ user.username }}
       <li>
         <a href="{% url 'foodie_app:add_recipe_no_genre' %}">Add Recipe</a>
       </li>
