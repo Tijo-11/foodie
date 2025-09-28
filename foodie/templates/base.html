@@ -1,7 +1,9 @@
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
       content="Foodie - Discover delicious recipes and culinary inspiration."
@@ -10,34 +12,152 @@
       name="keywords"
       content="food, recipes, cooking, culinary, foodie, meals, cuisine"
     />
-    <title>My Site</title>
+    <title>Foodie</title>
+    {% bootstrap_css %}
+    <style>
+      body {
+        padding-top: 70px;
+        background-color: #fff8f0; /* warm, creamy tone */
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      footer {
+        background-color: #f0e5d8;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.6rem;
+        background: linear-gradient(
+          45deg,
+          #ff7e5f,
+          #feb47b
+        ); /* enchanting gradient */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .navbar-nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar-text {
+        font-weight: 500;
+        color: #ff6f61; /* coral tone */
+        margin-right: 1rem;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        margin-right: 0.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link[href*="add_recipe_no_genre"] {
+        color: #28a745; /* green */
+      }
+
+      .nav-link[href*="add_category"] {
+        color: #17a2b8; /* teal */
+      }
+
+      .nav-link[href*="register"] {
+        color: #6f42c1; /* purple */
+      }
+
+      .nav-link[href*="login"] {
+        color: #fd7e14; /* orange */
+      }
+
+      .nav-link:hover {
+        color: #dc3545; /* red on hover */
+      }
+
+      .btn-outline-danger {
+        margin-left: 0.5rem;
+      }
+    </style>
   </head>
   <body>
     <header>
-      <h1><a href="{% url 'foodie_app:index' %}"> Foodie </a></h1>
-      <ul>
-        {% if user.is_authenticated %} Hello, {{ user.username }}
-        <li>
-          <a href="{% url 'foodie_app:add_recipe_no_genre' %}">Add Recipe</a>
-        </li>
-        <li>
-          <a href="{% url 'foodie_app:add_category' %}">Add Category</a>
-        </li>
-        <!-- Show logout form -->
-        <form method="post" action="{% url 'accounts:logout' %}">
-          {% csrf_token %} <button type="submit">Logout</button>
-        </form>
-        {% else %}
-        <li><a href="{% url 'accounts:register' %}">Register</a></li>
-        <li><a href="{% url 'accounts:login' %}">Login</a></li>
-        {% endif %}
-      </ul>
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top"
+      >
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'foodie_app:index' %}">Foodie</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+              <li class="nav-item d-flex align-items-center">
+                <span class="navbar-text">Welcome, {{ user.username }}</span>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="{% url 'foodie_app:add_recipe_no_genre' %}"
+                  >Add Recipe</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'foodie_app:add_category' %}"
+                  >Add Category</a
+                >
+              </li>
+              <li class="nav-item d-flex align-items-center">
+                <form
+                  method="post"
+                  action="{% url 'accounts:logout' %}"
+                  class="d-inline"
+                >
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-danger btn-sm">
+                    Logout
+                  </button>
+                </form>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:register' %}"
+                  >Register</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
 
-    <main>{% block content %}{% endblock content %}</main>
+    <main class="container mt-4">
+      {% block content %} {% endblock content %}
+    </main>
+
     <footer>
-      <hr />
-      <pre>Footer</pre>
+      <div class="container">
+        <hr />
+        <p>©copy; 2025 Foodie. All rights reserved.</p>
+      </div>
     </footer>
+
+    {% bootstrap_javascript %}
   </body>
 </html>

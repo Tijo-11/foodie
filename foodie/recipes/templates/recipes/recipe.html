@@ -1,8 +1,19 @@
 {% extends "base.html" %} {% block content %}
-<div>
-  <h5>{{ recipe.name }}</h5>
-  <p><em>{{ recipe.description }}</em></p>
-  <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
-  <p><strong>Directions:</strong> {{ recipe.directions }}</p>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title text-center text-danger">{{ recipe.name }}</h5>
+        <p class="card-text text-muted text-center">
+          <em>{{ recipe.description }}</em>
+        </p>
+        <hr />
+        <p><strong class="text-success">Ingredients:</strong></p>
+        <p>{{ recipe.ingredients }}</p>
+        <p><strong class="text-primary">Directions:</strong></p>
+        <p>{{ recipe.directions }}</p>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock content %}

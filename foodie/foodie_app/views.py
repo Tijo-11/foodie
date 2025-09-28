@@ -52,7 +52,7 @@ def add_recipe(request, category_id=None):
     if request.method == 'POST' and form.is_valid():
         new_recipe = form.save()
         # Redirect to recipes under the same category
-        return redirect('recipes:recipes', category_id=new_recipe.category.id)
+        return redirect('foodie_app:recipes', category_id=new_recipe.category.id)
 
     # If GET or invalid form, just render the template
     return render(request, 'foodie_app/add_recipe.html', {

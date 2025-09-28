@@ -27,7 +27,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    #my apps
+    #installed apps
+    'django_bootstrap5',
+    #custome apps
     'sandbox','foodie_app','recipes', 'comments','accounts',
 ]
 
