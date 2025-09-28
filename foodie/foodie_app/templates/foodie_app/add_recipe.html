@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
-<h2>Add Recipe</h2>
+<h2>Add a new recipe {% if category %} to {{ category.name }}{% endif %}</h2>
+
 <form method="post">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit">Save Recipe</button>

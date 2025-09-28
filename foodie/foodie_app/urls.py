@@ -7,5 +7,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('recipes/<int:category_id>/', views.recipes, name='recipes'),  # recipes for a category
     path("add-category/", views.add_category, name="add_category"),
+    # old add recipe (no category)
     path('add_recipe/', views.add_recipe, name='add_recipe_no_genre'),
+    # new add recipe with category
+    path('add-recipe/<int:category_id>/', views.add_recipe, name='add_recipe_with_genre'),
 ]
