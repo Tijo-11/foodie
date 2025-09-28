@@ -3,6 +3,7 @@
 <h2>Foodie - Discover delicious recipes and culinary inspiration.</h2>
 <h1><a href="{% url 'recipes:recipes' %}"> Recipes </a></h1>
 <h3>Categories</h3>
+<a href="{% url 'foodie_app:add_category' %}">Add Category</a>
 <div>
   {% for category in categories %}
   <div>
