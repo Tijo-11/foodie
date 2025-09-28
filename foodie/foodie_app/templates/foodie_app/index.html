@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Foodie - Discover delicious recipes and culinary inspiration."
-    />
-    <meta
-      name="keywords"
-      content="food, recipes, cooking, culinary, foodie, meals, cuisine"
-    />
-    <title>Foodie App</title>
-  </head>
-  <body>
-    <h1>Hello World</h1>
-    <h2>Foodie - Discover delicious recipes and culinary inspiration.</h2>
-  </body>
-</html>
+{% extends "base.html" %} {% block content %}
+<h1>Hello World</h1>
+<h2>Foodie - Discover delicious recipes and culinary inspiration.</h2>
+<h1><a href="{% url 'recipes:recipes' %}"> Recipes </a></h1>
+<h3>Categories</h3>
+<div>
+  {% for category in categories %}
+  <div>
+    <!-- either {{ category }} or {{ category.name }} works if Category.__str__ returns name -->
+    <h4>
+      <a href="{% url 'foodie_app:recipes' category.id %}"> {{ category }} </a>
+    </h4>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

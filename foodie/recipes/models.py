@@ -8,6 +8,9 @@ class Recipe(models.Model):
     directions = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    
+    class Meta:
+        ordering = ['date_added']
 
     def __str__(self):
         return self.name
