@@ -63,6 +63,17 @@
   </div>
 
   <hr />
+  <div class="d-flex justify-content-start gap-2 mt-2">
+    <a
+      href="{% url 'recipes:delete_recipe' recipe.id %}"
+      class="btn btn-danger"
+    >
+      Delete Recipe
+    </a>
+    <a href="{% url 'recipes:edit_recipe' recipe.id %}" class="btn btn-warning">
+      <i class="fas fa-edit"></i> Edit Recipe
+    </a>
+  </div>
 
   <h4>Comments</h4>
   <div class="mb-3">

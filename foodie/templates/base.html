@@ -153,9 +153,10 @@
 
               <!-- All Recipes with dropdown for authenticated users -->
               <li class="nav-item dropdown">
+                {% if user.is_authenticated %}
                 <a
                   class="btn btn-foodie dropdown-toggle mx-2"
-                  href="{% url 'recipes:recipes' %}"
+                  href="#"
                   id="recipesDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -163,23 +164,37 @@
                 >
                   All Recipes
                 </a>
-                {% if user.is_authenticated %}
                 <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'recipes:recipes' %}">
+                      All Recipes
+                    </a>
+                  </li>
                   <li>
                     <a
                       class="dropdown-item"
                       href="{% url 'foodie_app:add_recipe_no_genre' %}"
-                      >Add Recipe</a
                     >
+                      Add Recipe
+                    </a>
                   </li>
                   <li>
                     <a
                       class="dropdown-item"
                       href="{% url 'foodie_app:add_category' %}"
-                      >Add Category</a
                     >
+                      Add Category
+                    </a>
                   </li>
                 </ul>
+                {% else %}
+                <a
+                  class="btn btn-foodie mx-2"
+                  href="{% url 'recipes:recipes' %}"
+                  role="button"
+                >
+                  All Recipes
+                </a>
                 {% endif %}
               </li>
 

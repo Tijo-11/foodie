@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="container mt-4">
+  <h2>Are you sure you want to delete "{{ recipe.name }}"?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+  </form>
+  <hr />
+  <a
+    href="{% url 'recipes:recipe_detail' recipe.id %}"
+    class="btn btn-secondary"
+    >Cancel</a
+  >
+</div>
+{% endblock content %}
