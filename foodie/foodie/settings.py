@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     #installed apps
     'django_bootstrap5',
     'django.contrib.humanize',
+    'rest_framework',
     'fontawesomefree',
     #custome apps
     'sandbox','foodie_app','recipes', 'comments','accounts',

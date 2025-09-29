@@ -1,7 +1,14 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
+from .views import RecipeViewSet
 
 app_name = 'recipes'
+
+##For DRF-------------
+router = routers.DefaultRouter()  # DefaultRouter includes an API root view
+router.register(r'recipes', RecipeViewSet, basename='recipe')
+
 
 urlpatterns = [
     path('', views.recipes_view, name='recipes'),
@@ -15,4 +22,5 @@ urlpatterns = [
     path("my-favorites/", views.favorite_recipes, name="favorite_recipes"),
     path('recipe/<int:recipe_id>/delete/', views.delete_recipe, name='delete_recipe'),
     path('recipe/<int:recipe_id>/edit/', views.edit_recipe, name='edit_recipe'),
+    path('api/', include(router.urls)),
 ]
