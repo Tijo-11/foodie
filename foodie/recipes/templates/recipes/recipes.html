@@ -7,6 +7,16 @@
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
           <h5 class="card-title text-primary">{{ recipe.name }}</h5>
+          {% if recipe.image %}
+          <img
+            src="{{ recipe.image.url }}"
+            alt="{{ recipe.name }}"
+            class="img-fluid rounded mx-auto d-block my-3"
+            width="160"
+            height="120"
+          />
+          {% endif %}
+
           <a
             href="{% url 'recipes:recipe_detail' recipe.id %}"
             class="btn btn-outline-danger btn-sm"

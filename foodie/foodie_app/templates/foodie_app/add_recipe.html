@@ -6,7 +6,7 @@
         <h2 class="card-title text-center mb-4 text-primary">
           Add a new recipe {% if category %} to {{ category.name }}{% endif %}
         </h2>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           {% csrf_token %} {% bootstrap_form form layout='vertical' %}
           <div class="d-grid mt-3">
             <button type="submit" class="btn btn-danger">Save Recipe</button>

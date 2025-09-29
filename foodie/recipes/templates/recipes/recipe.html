@@ -20,6 +20,16 @@
             <small>Created by {{ recipe.user.username }}</small>
           </div>
         </div>
+        {% if recipe.image %}
+        <img
+          src="{{ recipe.image.url }}"
+          alt="{{ recipe.name }}"
+          class="img-fluid rounded mx-auto d-block my-3"
+          width="400"
+          height="300"
+        />
+        {% endif %}
+
         <p class="card-text text-muted text-center">
           <em>{{ recipe.description }}</em>
         </p>
@@ -31,5 +41,38 @@
       </div>
     </div>
   </div>
+  <hr />
+  <h4>Comments</h4>
+  <div class="mb-3">
+    {% for comment in comments %}
+    <div class="comment mb-2 border rounded p-3">
+      <div class="d-flex align-items-center mb-2">
+        {% if comment.user.profile.profile_photo %}
+        <img
+          src="{{ comment.user.profile.profile_photo.url }}"
+          alt="profile"
+          class="rounded-circle me-2"
+          width="30"
+          height="30"
+        />
+        {% endif %}
+        <small class="fst-italic">{{ comment.user.username }} commented:</small>
+      </div>
+      <p>{{ comment.text }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if user.is_authenticated %}
+  <form method="post">
+    {% csrf_token %} {{ comment_form.as_p }}
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+  </form>
+  {% else %}
+  <p>
+    <a href="{% url 'accounts:login' %}" class="btn btn-primary">Log in</a> to
+    add a comment.
+  </p>
+  {% endif %}
 </div>
 {% endblock content %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Category  # Category model in foodie_app
 from recipes.models import Recipe  # import Recipe from the recipes app
 from .forms import CategoryForm, RecipeForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     categories = Category.objects.all()
@@ -19,7 +20,7 @@ def recipes(request, category_id):
     }
     return render(request, 'foodie_app/recipes.html', context)
 
-
+@login_required
 def add_category(request):
     if request.method == "POST":
         form = CategoryForm(request.POST)  # bind form with submitted data
@@ -37,24 +38,26 @@ def add_category(request):
     context = {"form": form}
     return render(request, "foodie_app/add_category.html", context)
 
-
+@login_required
 def add_recipe(request, category_id=None):
-    category = None
-    
-    # If category_id is passed, fetch the category or return 404
-    if category_id:
-        category = get_object_or_404(Category, id=category_id)
+    # Try to fetch category if category_id is provided
+    category = get_object_or_404(Category, id=category_id) if category_id else None
 
-    # Create the form
-    form = RecipeForm(request.POST or None, initial={'category': category})
+    # Prepare initial data
+    initial_data = {'category': category}
 
-    # Handle form submission
-    if request.method == 'POST' and form.is_valid():
-        new_recipe = form.save()
-        # Redirect to recipes under the same category
-        return redirect('foodie_app:recipes', category_id=new_recipe.category.id)
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES, initial=initial_data)
+        if form.is_valid():
+            new_recipe = form.save(commit=False)
+            new_recipe.user = request.user
+            if category:
+                new_recipe.category = category  # Explicitly set category if passed
+            new_recipe.save()
+            return redirect('foodie_app:recipes', category_id=new_recipe.category.id if new_recipe.category else '')
+    else:
+        form = RecipeForm(initial=initial_data)
 
-    # If GET or invalid form, just render the template
     return render(request, 'foodie_app/add_recipe.html', {
         'form': form,
         'category': category,
