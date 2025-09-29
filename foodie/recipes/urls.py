@@ -6,4 +6,5 @@ app_name = 'recipes'
 urlpatterns = [
     path('', views.recipes_view, name='recipes'),
     path('<int:recipe_id>/', views.recipe, name='recipe_detail'),  # Detail page for a single recipe
+    path('search/', views.search_results, name='search_results'),
 ]
