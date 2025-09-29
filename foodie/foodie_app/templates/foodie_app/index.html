@@ -1,20 +1,37 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% block content %}
+<style>
+/* Eye-catching Browse Recipes button */
+.browse-btn {
+  background: linear-gradient(45deg, #ff7043, #ffca28); /* warm orange to golden yellow */
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.browse-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  text-decoration: none;
+}
+</style>
 <div class="container">
   <div class="text-center mb-5">
-    <h1 class="display-4 text-danger">Hello World</h1>
+    <h1 class="display-4 text-danger">Welcome to Your Culinary Adventure!</h1>
     <h2 class="text-muted">
-      Foodie – Discover delicious recipes and culinary inspiration.
+      Discover mouth-watering recipes and get inspired in the kitchen.
     </h2>
-    <a href="{% url 'recipes:recipes' %}" class="btn btn-outline-primary mt-3"
-      >Browse Recipes</a
-    >
+    <a href="{% url 'recipes:recipes' %}" 
+     class="btn btn-lg text-white mt-3 browse-btn">
+     Browse Recipes
+  </a>
   </div>
 
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="text-success">Categories</h3>
-    <a href="{% url 'foodie_app:add_category' %}" class="btn btn-warning btn-sm"
-      >Add Category</a
-    >
+    <a href="{% url 'foodie_app:add_category' %}" class="btn btn-warning btn-sm">
+      Add Category
+    </a>
   </div>
 
   <div class="row">
@@ -23,10 +40,7 @@
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body text-center">
           <h4 class="card-title">
-            <a
-              href="{% url 'foodie_app:recipes' category.id %}"
-              class="text-decoration-none text-dark"
-            >
+            <a href="{% url 'foodie_app:recipes' category.id %}" class="text-decoration-none text-dark">
               {{ category }}
             </a>
           </h4>

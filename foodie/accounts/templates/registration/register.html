@@ -1,6 +1,61 @@
-{% extends "base.html" %} {% block content %}
-<h2>Register</h2>
-<form method="post" action="{% url 'accounts:register' %}">
-  {% csrf_token %} {{ form.as_p }} <button type="submit">Register</button>
-</form>
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body p-4">
+        <h2 class="text-center mb-4 text-success">Register</h2>
+        <form method="post" action="{% url 'accounts:register' %}">
+          {% csrf_token %}
+
+          <!-- Username -->
+          <div class="mb-3">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% if form.username.errors %}
+              <div class="text-danger small">{{ form.username.errors }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {% if form.email.errors %}
+              <div class="text-danger small">{{ form.email.errors }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+
+            <!-- Collapsible password instructions -->
+            <p class="mt-1">
+              <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" href="#passwordHelp" role="button" aria-expanded="false" aria-controls="passwordHelp">
+                Password requirements
+              </a>
+            </p>
+            <div class="collapse" id="passwordHelp">
+              <div class="card card-body bg-light text-dark mb-2">
+                • At least 8 characters<br>
+                • Must include letters and numbers<br>
+                • At least one special character
+              </div>
+            </div>
+
+            {% if form.password1.errors %}
+              <div class="text-danger small">{{ form.password1.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-success btn-lg">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
