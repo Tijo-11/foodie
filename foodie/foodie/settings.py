@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #installed apps
     'django_bootstrap5',
+    'django.contrib.humanize',
+    'fontawesomefree',
     #custome apps
     'sandbox','foodie_app','recipes', 'comments','accounts',
 ]
@@ -121,3 +123,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGOUT_REDIRECT_URL = "foodie_app:index" # After logout → go to homepage (index) 
 LOGIN_REDIRECT_URL = "foodie_app:index" # After login → go to homepage 
 LOGIN_URL = "accounts:login"
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'

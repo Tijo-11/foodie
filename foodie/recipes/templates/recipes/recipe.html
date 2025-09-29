@@ -38,10 +38,32 @@
         <p>{{ recipe.ingredients }}</p>
         <p><strong class="text-primary">Directions:</strong></p>
         <p>{{ recipe.directions }}</p>
+        {% if user.is_authenticated %}
+        <div class="p-3 mb-4 bg-light">
+          <form
+            method="post"
+            action="{% url 'recipes:toggle_favorite' recipe.id %}"
+          >
+            {% csrf_token %} {% if recipe in user.favorite_recipes.all %}
+            <!-- Already favorited → solid red heart -->
+            <button type="submit" class="btn btn-link p-0 m-0">
+              <i class="fas fa-heart" style="color: red"></i>
+            </button>
+            {% else %}
+            <!-- Not yet favorited → outlined heart -->
+            <button type="submit" class="btn btn-link p-0 m-0">
+              <i class="far fa-heart"></i>
+            </button>
+            {% endif %}
+          </form>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
+
   <hr />
+
   <h4>Comments</h4>
   <div class="mb-3">
     {% for comment in comments %}
@@ -64,6 +86,7 @@
   </div>
 
   {% if user.is_authenticated %}
+
   <form method="post">
     {% csrf_token %} {{ comment_form.as_p }}
     <button type="submit" class="btn btn-primary">Add Comment</button>
@@ -73,6 +96,7 @@
     <a href="{% url 'accounts:login' %}" class="btn btn-primary">Log in</a> to
     add a comment.
   </p>
+
   {% endif %}
 </div>
 {% endblock content %}

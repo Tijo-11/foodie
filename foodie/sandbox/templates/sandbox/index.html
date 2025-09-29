@@ -1,5 +1,6 @@
-<!-- sandbox/templates/index.html -->
-{% extends "base.html" %} {% block content %} {% if messages %}
+{% extends "base.html" %} {% load static %} {% load humanize %}
+<!-- Display messages -->
+{% block content%} {% if messages %}
 <div class="container mt-3">
   {% for message in messages %}
   <div
@@ -17,12 +18,21 @@
   {% endfor %}
 </div>
 {% endif %}
-<h2>All Recipes</h2>
 
+<!-- Visit count -->
+<div>
+  {% if visits %}
+  <p>You have visited this page {{ visits }} time{{ visits|pluralize }}.</p>
+  else {% endif %}
+</div>
+
+<!-- Recipe list -->
+<h2>All Recipes</h2>
 <ul>
   {% for recipe in recipes %}
   <li>{{ recipe.name }}</li>
+  {% empty %}
+  <li>No recipes available.</li>
   {% endfor %}
 </ul>
-
 {% endblock content %}

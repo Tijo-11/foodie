@@ -1,4 +1,4 @@
-{% load django_bootstrap5 %}
+{% load static %} {% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -81,7 +81,40 @@
       .btn-outline-danger {
         margin-left: 0.5rem;
       }
+
+      <style > .btn-foodie {
+        background-color: #ff7043; /* warm orange, inspired by Tasty */
+        color: white;
+        border: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-foodie:hover {
+        background-color: #ff5722; /* slightly darker on hover */
+        color: white;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #ffe0b2; /* light orange hover for dropdowns */
+      }
+
+      .navbar-text a {
+        color: #ff7043;
+        text-decoration: none;
+      }
+
+      .navbar-text a:hover {
+        text-decoration: underline;
+      }
     </style>
+    <!-- FontAwesome CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
   </head>
   <body>
     <header>
@@ -101,9 +134,57 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
+              <!-- Search visible to all users -->
+              <li class="nav-item">
+                <form
+                  class="d-flex mt-2 mb-3"
+                  action="{% url 'recipes:search_results' %}"
+                  method="get"
+                >
+                  {{ search_form.query }}
+                  <button class="btn btn-foodie ms-1" type="submit">
+                    Search
+                  </button>
+                </form>
+              </li>
+
+              <!-- All Recipes with dropdown for authenticated users -->
+              <li class="nav-item dropdown">
+                <a
+                  class="btn btn-foodie dropdown-toggle mx-2"
+                  href="{% url 'recipes:recipes' %}"
+                  id="recipesDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  All Recipes
+                </a>
+                {% if user.is_authenticated %}
+                <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{% url 'foodie_app:add_recipe_no_genre' %}"
+                      >Add Recipe</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{% url 'foodie_app:add_category' %}"
+                      >Add Category</a
+                    >
+                  </li>
+                </ul>
+                {% endif %}
+              </li>
+
               {% if user.is_authenticated %}
+              <!-- Profile and Cookbook -->
               <li class="nav-item d-flex align-items-center">
                 {% if user.profile.profile_photo %}
                 <img
@@ -120,37 +201,22 @@
               </li>
 
               <li class="nav-item d-flex align-items-center">
-                <span class="navbar-text"
-                  >Welcome,
-                  <a href="{% url 'accounts:edit_user_profile' %}">
-                    {{ user.username }}
-                  </a></span
-                >
+                <span class="navbar-text">
+                  Welcome,
+                  <a href="{% url 'accounts:edit_user_profile' %}"
+                    >{{ user.username }}</a
+                  >
+                </span>
               </li>
-              <li class="nav-item">
-                <form
-                  class="d-flex mt-2 mb-3"
-                  action="{% url 'recipes:search_results' %}"
-                  method="get"
-                >
-                  {{ search_form.query }}
-                  <button class="btn btn-outline-success ms-1" type="submit">
-                    Search
-                  </button>
-                </form>
-              </li>
+
               <li class="nav-item">
                 <a
-                  class="nav-link"
-                  href="{% url 'foodie_app:add_recipe_no_genre' %}"
-                  >Add Recipe</a
+                  class="btn btn-foodie btn-sm mx-2"
+                  href="{% url 'recipes:favorite_recipes' %}"
+                  >My Cookbook</a
                 >
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'foodie_app:add_category' %}"
-                  >Add Category</a
-                >
-              </li>
+
               <li class="nav-item d-flex align-items-center">
                 <form
                   method="post"
@@ -158,12 +224,13 @@
                   class="d-inline"
                 >
                   {% csrf_token %}
-                  <button type="submit" class="btn btn-outline-danger btn-sm">
+                  <button type="submit" class="btn btn-danger btn-sm">
                     Logout
                   </button>
                 </form>
               </li>
               {% else %}
+              <!-- Register/Login for unauthenticated users -->
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:register' %}"
                   >Register</a

@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block content %}
+
+<h2>My Cookbook</h2>
+
+{% if recipes.exists %}
+<div class="row">
+  {% for recipe in recipes %}
+  <div class="col-md-4">
+    <div class="card mb-3">
+      {% if recipe.image %}
+      <img
+        src="{{ recipe.image.url }}"
+        class="card-img-top"
+        alt="{{ recipe.title }}"
+      />
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ recipe.title }}</h5>
+        <p class="card-text">{{ recipe.description|truncatewords:20 }}</p>
+        <a
+          href="{% url 'recipes:recipe_detail' recipe.id %}"
+          class="btn btn-primary"
+          >View Details</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>You have not added any recipes to your favorites (cookbook) yet.</p>
+{% endif %} {% endblock %}

@@ -15,6 +15,11 @@ class Recipe(models.Model):
         null=True,                   # optional
          blank=True )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes', null=True, default=1)
+    favorited_by = models.ManyToManyField(
+        User,
+        related_name="favorite_recipes",
+        blank=True
+    )
 
     
     class Meta:
@@ -24,3 +29,5 @@ class Recipe(models.Model):
         return self.name
     def get_absolute_url(self):
         return reverse('recipes:recipe_detail', args=[str(self.id)])
+    
+

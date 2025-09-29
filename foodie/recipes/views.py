@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Recipe  # import the Recipe model
 from comments.forms import CommentForm
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 def recipes_view(request):
     recipes = Recipe.objects.all()  # fetch all recipes
@@ -64,6 +65,36 @@ def search_results(request):
         'results': results,
     }
     return render(request, 'recipes/search_results.html', context)
+
+
+@login_required
+def toggle_favorite(request, recipe_id):
+    # Get the recipe or return 404 if not found
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    # Check if current user already favorited this recipe
+    if request.user in recipe.favorited_by.all():
+        # If yes → remove (unfavorite)
+        recipe.favorited_by.remove(request.user)
+    else:
+        # If not → add to favorites
+        recipe.favorited_by.add(request.user)
+
+    # Redirect back to the recipe detail page
+    return redirect("recipes:recipe_detail", recipe_id=recipe.id)
+
+
+@login_required
+def favorite_recipes(request):
+    user = request.user
+    # Access the related name from Recipe model
+    favorites = user.favorite_recipes.all()
+
+    context = {
+        "recipes": favorites
+    }
+
+    return render(request, "recipes/favorites.html", context)
 
 
 
