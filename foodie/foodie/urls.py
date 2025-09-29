@@ -2,6 +2,8 @@
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -11,7 +13,7 @@ urlpatterns = [
     path("comments/", include("comments.urls")),
     path("", include(('accounts.urls', 'accounts'), namespace='accounts')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 #"accounts" (inside the tuple)
 # This is the app name used for namespacing. It should match the app_name variable defined in 

@@ -8,4 +8,5 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     # Custom register page
     path("register/", views.register, name="register"),
+    path("edit-profile/", views.edit_user_profile, name="edit_user_profile")
 ]

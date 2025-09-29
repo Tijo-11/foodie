@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .forms import UserProfileForm
 
 def register(request):
     if request.method != "POST":
@@ -16,8 +17,27 @@ def register(request):
             new_user = form.save()
             # Log in the new user immediately
             login(request, new_user)
-            return HttpResponse("Registration successful! You are now logged in.")
+            return redirect("foodie_app:index")
         # If not POST or form invalid, show registration form
     context = {"form": form}
     return render(request, "registration/register.html", context)
 
+
+def edit_user_profile(request):
+    if request.method == "POST":
+        form = UserProfileForm(
+            request.POST,
+            request.FILES,
+            instance=request.user.profile
+        )
+        if form.is_valid():
+            form.save()
+            return redirect("foodie_app:index")
+    else:
+        form = UserProfileForm(instance=request.user.profile)
+
+    return render(
+        request,
+        "accounts/edit_profile.html",
+        {"form": form}
+    )

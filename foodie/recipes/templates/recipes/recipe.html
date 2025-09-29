@@ -4,6 +4,22 @@
     <div class="card shadow-sm border-0">
       <div class="card-body">
         <h5 class="card-title text-center text-danger">{{ recipe.name }}</h5>
+        <div class="row align-items-center pt-3">
+          <div class="col-auto">
+            {% if recipe.user.profile.profile_photo %}
+            <img
+              src="{{ recipe.user.profile.profile_photo.url }}"
+              alt="profile photo"
+              class="rounded-circle"
+              width="30"
+              height="30"
+            />
+            {% endif %}
+          </div>
+          <div class="col-auto">
+            <small>Created by {{ recipe.user.username }}</small>
+          </div>
+        </div>
         <p class="card-text text-muted text-center">
           <em>{{ recipe.description }}</em>
         </p>
