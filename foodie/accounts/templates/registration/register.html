@@ -50,6 +50,15 @@
             {% endif %}
           </div>
 
+          <!-- Password Confirmation -->
+          <div class="mb-3">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+              <div class="text-danger small">{{ form.password2.errors }}</div>
+            {% endif %}
+          </div>
+
           <div class="d-grid mt-3">
             <button type="submit" class="btn btn-success btn-lg">Register</button>
           </div>
